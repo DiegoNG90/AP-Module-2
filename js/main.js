@@ -62,7 +62,7 @@ function manejarErrores(errores){
     if (errorNombre){
         $form.nombre.className= "error";
     } else {
-        $form.nombre.value = "";
+        $form.nombre.className = "";
     }
 
     if (errorCiudad){
