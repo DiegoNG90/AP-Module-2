@@ -48,33 +48,32 @@ function validarFormulario(e){
     const errores = {
         nombre: errorNombre,
         ciudad: errorCiudad,
-        descripcionRegalo: errorDescripcionRegalo
+        'descripcion-regalo': errorDescripcionRegalo
     }
-    manejarErrores(errores);
+    console.log(manejarErrores(errores));
     e.preventDefault();
 }
 
 function manejarErrores(errores){
-    errorNombre = errores.nombre;
-    errorCiudad = errores.ciudad;
-    errorDescripcionRegalo = errores.descripcionRegalo;
+    const keys = Object.keys(errores);
+    const $errores = document.querySelector('#errores');
+    let cantidadErrores = 0;
+    
+    keys.forEach(function(key) {
+        const error = errores[key];
 
-    if (errorNombre){
-        $form.nombre.className= "error";
-    } else {
-        $form.nombre.className = "";
-    }
+        if (error){
+            cantidadErrores++;
+            $form[key].className = "error"
 
-    if (errorCiudad){
-        $form.ciudad.className = "error"; 
-    }else {
-        $form.ciudad.className = "";
-    }
-
-    if (errorDescripcionRegalo){
-        $form["descripcion-regalo"].className = "error";
-    } else {
-        $form["descripcion-regalo"].className = "";
-    }
+            const $error = document.createElement('li');
+            $error.innerText = error;
+            $errores.appendChild($error);
+        } else{
+            //tarea: eliminar campo para reestablecer pantalla de errores.
+            $form[key].className  = "";
+        }  
+    });
+    return cantidadErrores;
 }
 $form.onsubmit = validarFormulario;
