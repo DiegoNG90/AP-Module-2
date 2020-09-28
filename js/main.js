@@ -50,7 +50,8 @@ function validarFormulario(e){
         ciudad: errorCiudad,
         'descripcion-regalo': errorDescripcionRegalo
     }
-    console.log(manejarErrores(errores));
+    // console.log(manejarErrores(errores));
+    const esExito = manejarErrores(errores) === 0;
     e.preventDefault();
 }
 
@@ -70,8 +71,10 @@ function manejarErrores(errores){
             $error.innerText = error;
             $errores.appendChild($error);
         } else{
-            //tarea: eliminar campo para reestablecer pantalla de errores.
+            //tarea: borrar "el campo adecuado";
             $form[key].className  = "";
+            cantidadErrores = 0;
+            $errores.parentNode.removeChild($error);
         }  
     });
     return cantidadErrores;
