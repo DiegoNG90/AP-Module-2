@@ -50,7 +50,13 @@ function validarFormulario(e){
         ciudad: errorCiudad,
         'descripcion-regalo': errorDescripcionRegalo
     }
-    console.log(manejarErrores(errores));
+    // console.log(manejarErrores(errores));
+    const esExito = manejarErrores(errores) === 0;
+    
+    if(esExito){
+        $form.className = "oculto";
+        document.querySelector('#exito').className = "";
+    }
     e.preventDefault();
 }
 
@@ -70,8 +76,8 @@ function manejarErrores(errores){
             $error.innerText = error;
             $errores.appendChild($error);
         } else{
-            //tarea: eliminar campo para reestablecer pantalla de errores.
             $form[key].className  = "";
+            $errores.innerHTML = "";
         }  
     });
     return cantidadErrores;
