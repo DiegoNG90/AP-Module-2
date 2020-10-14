@@ -11,7 +11,7 @@ const descripcionRegalo = $form['descripcion-regalo'].value;
 
 function validarNombre(nombre){
     if (nombre.length === 0){
-        return 'Este campo debe tener al menos 1 caracter'
+        return 'El campo nombre debe tener al menos 1 caracter'
     } else if (nombre.length >= 50){
         return 'Este campo debe tener menos de 50 caracteres'
     } else if(!/^[a-z]+$/i.test(nombre))
@@ -20,7 +20,7 @@ function validarNombre(nombre){
 };
 function validarCiudad(ciudad){
     if(ciudad === ""){
-        return 'Este campo debe tener una ciudad seleccionada'
+        return 'El campo ciudad debe tener una ciudad seleccionada'
     }
     return '';
 };
@@ -67,17 +67,20 @@ function manejarErrores(errores){
     
     keys.forEach(function(key) {
         const error = errores[key];
-
+        
         if (error){
             cantidadErrores++;
             $form[key].className = "error"
-
+            
             const $error = document.createElement('li');
+            $error.id = `error-${key}`;
             $error.innerText = error;
             $errores.appendChild($error);
         } else{
             $form[key].className  = "";
-            $errores.innerHTML = "";
+            // $errores.innerHTML = "";
+            const $error = document.querySelector(`#error-${key}`);
+            $error.remove();
         }  
     });
     return cantidadErrores;
