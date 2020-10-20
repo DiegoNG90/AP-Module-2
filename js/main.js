@@ -86,8 +86,10 @@ function manejarErrores(errores){
         } else{
             $form[key].className  = "";
             // $errores.innerHTML = "";
-            const $error = document.querySelector(`#error-${key}`);
-            $error.remove();
+            if (document.querySelector('#errores').childElementCount > 0) {
+                const $error = document.querySelector(`#error-${key}`);
+                $error.remove();
+            }
         }  
     });
     return cantidadErrores;
