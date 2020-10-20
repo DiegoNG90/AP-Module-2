@@ -58,8 +58,13 @@ function validarFormulario(e){
     if(esExito){
         $form.className = "oculto";
         document.querySelector('#exito').className = "";
+        redireccionar();
     }
     e.preventDefault();
+}
+
+function redireccionar(){
+    setTimeout(function(){window.location.href = "wishlist.html";}, 3000);
 }
 
 function manejarErrores(errores){
