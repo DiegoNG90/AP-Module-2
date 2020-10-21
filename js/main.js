@@ -11,16 +11,18 @@ const descripcionRegalo = $form['descripcion-regalo'].value;
 
 function validarNombre(nombre){
     if (nombre.length === 0){
-        return 'Este campo debe tener al menos 1 caracter'
+        return 'El campo nombre debe tener al menos 1 caracter'
     } else if (nombre.length >= 50){
         return 'Este campo debe tener menos de 50 caracteres'
-    } else if(!/^[a-z]+$/i.test(nombre))
+    } else if(!/^[a-z]+$/i.test(nombre)){
         return 'El campo nombre solo acepta letras'
+    }
     return '';
+
 };
 function validarCiudad(ciudad){
     if(ciudad === ""){
-        return 'Este campo debe tener una ciudad seleccionada'
+        return 'El campo ciudad debe tener una ciudad seleccionada'
     }
     return '';
 };
@@ -55,27 +57,32 @@ function validarFormulario(e){
     e.preventDefault();
 }
 
+function redireccionar(){
+    setTimeout(function(){window.location.href = "wishlist.html";}, 3000);
+}
+
 function manejarErrores(errores){
     const keys = Object.keys(errores);
     const $errores = document.querySelector('#errores');
     let cantidadErrores = 0;
-    
+    while($errores.firstChild){
+        $errores.removeChild($errores.firstChild);
+    };
+
     keys.forEach(function(key) {
         const error = errores[key];
-
+        
         if (error){
-            cantidadErrores++;
-            $form[key].className = "error"
-
             const $error = document.createElement('li');
             $error.innerText = error;
             $errores.appendChild($error);
+
+            let llave = document.querySelector(`[name="${key}"]`);
+            llave.className = "error";
+            llave.value = "";
+            
+            cantidadErrores++;
         } else{
-            //tarea: borrar "el campo adecuado";
-            $form[key].className  = "";
-            cantidadErrores = 0;
-            $errores.parentNode.removeChild($error);
-        }  
     });
     return cantidadErrores;
 }
