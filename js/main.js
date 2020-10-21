@@ -71,25 +71,27 @@ function manejarErrores(errores){
     const keys = Object.keys(errores);
     const $errores = document.querySelector('#errores');
     let cantidadErrores = 0;
-    
+    while($errores.firstChild){
+        $errores.removeChild($errores.firstChild);
+    };
+
     keys.forEach(function(key) {
         const error = errores[key];
         
         if (error){
-            cantidadErrores++;
-            $form[key].className = "error"
-            
             const $error = document.createElement('li');
-            $error.id = `error-${key}`;
             $error.innerText = error;
             $errores.appendChild($error);
+
+            let llave = document.querySelector(`[name="${key}"]`);
+            llave.className = "error";
+            llave.value = "";
+            
+            cantidadErrores++;
         } else{
-            $form[key].className  = "";
-            // $errores.innerHTML = "";
-            if (document.querySelector('#errores').childElementCount > 0) {
-                const $error = document.querySelector(`#error-${key}`);
-                $error.remove();
-            }
+            let llave = document.querySelector(`[name="${key}"]`);
+            llave.classList.remove("error");
+
         }  
     });
     return cantidadErrores;
