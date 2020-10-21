@@ -54,6 +54,12 @@ function validarFormulario(e){
     }
     // console.log(manejarErrores(errores));
     const esExito = manejarErrores(errores) === 0;
+    
+    if(esExito){
+        $form.className = "oculto";
+        document.querySelector('#exito').className = "";
+        redireccionar();
+    }
     e.preventDefault();
 }
 
@@ -83,6 +89,10 @@ function manejarErrores(errores){
             
             cantidadErrores++;
         } else{
+            let llave = document.querySelector(`[name="${key}"]`);
+            llave.classList.remove("error");
+
+        }  
     });
     return cantidadErrores;
 }
